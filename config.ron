@@ -1,0 +1,34 @@
+#![enable(implicit_some, unwrap_variant_newtypes)]
+
+Config(
+  instant_feedback: true,
+  questions: [
+    (
+      prompt: "Do you like minecraft",
+      options: SingleChoice(
+        answers: ["Yes", "No", "Maybe", "idk", "123", "423", "dsfgdgf", "dfg"],
+        correct: [0]
+      )
+    ),
+    (
+      prompt: "Earth is flat",
+      options: TrueFalse(false)
+    ),
+    (
+      prompt: "what is the best language",
+      options: TextInput(["rust", "typescript"])
+    ),
+    (
+      prompt: "whats 2+2",
+      options: NumInput([5])
+    ),
+    (
+      prompt: "whtats your naem",
+      options: TextInput(None)
+    ),
+    (
+      prompt: "how old are you",
+      options: NumInput(None)
+    )
+  ]
+)
