@@ -4,6 +4,7 @@ use dialoguer::Error;
 use dialoguer::Input;
 use dialoguer::Select;
 
+use crate::config::CaseSensitivity;
 use crate::config::Question;
 use crate::config::WithCorrect;
 
@@ -56,12 +57,17 @@ pub fn handle_num_input(prompt: &str, correct: &Option<Vec<f64>>) -> Result<Opti
 
 pub fn handle_text_input(
     prompt: &str,
-    correct: &Option<Vec<String>>,
+    correct: &Option<CaseSensitivity<Vec<String>>>,
 ) -> Result<Option<bool>, Error> {
     let input: String = Input::new().with_prompt(prompt).interact()?;
 
     match correct {
-        Some(vec) => Ok(Some(vec.contains(&input))),
+        Some(case) => match case {
+            CaseSensitivity::CaseSens(vec) => Ok(Some(vec.contains(&input))),
+            CaseSensitivity::NotCaseSens(vec) => Ok(Some(
+                vec.iter().any(|v| v.to_lowercase() == input.to_lowercase()),
+            )),
+        },
         None => Ok(None),
     }
 }

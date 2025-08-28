@@ -16,7 +16,7 @@ Config(
     ),
     (
       prompt: "what is the best language",
-      options: TextInput(["rust", "typescript"])
+      options: TextInput(NotCaseSens(["rust", "typescript"]))
     ),
     (
       prompt: "whats 2+2",

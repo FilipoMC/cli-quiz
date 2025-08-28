@@ -1,5 +1,3 @@
-#![allow(dead_code)]
-
 pub mod errors;
 pub use errors::*;
 
@@ -15,10 +13,16 @@ pub struct WithCorrect<T> {
 }
 
 #[derive(Deserialize, Debug)]
+pub enum CaseSensitivity<T> {
+    CaseSens(T),
+    NotCaseSens(T),
+}
+
+#[derive(Deserialize, Debug)]
 pub enum QuestionType {
     SingleChoice(WithCorrect<Vec<String>>),
     TrueFalse(bool),
-    TextInput(Option<Vec<String>>),
+    TextInput(Option<CaseSensitivity<Vec<String>>>),
     NumInput(Option<Vec<f64>>),
 }
 
